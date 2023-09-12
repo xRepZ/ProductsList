@@ -19,6 +19,7 @@ input[type="text"] {
     height: 32px;
     width: 240px;
 }
+
 input[type="number"] {
     font-family: inherit;
     height: 32px;
@@ -29,6 +30,7 @@ input[type="number"] {
 .d-flex {
     display: flex;
 }
+
 .remove-all {
     display: flex;
     align-items: center;
@@ -45,6 +47,7 @@ input[type="number"] {
 .mt-10 {
     margin-top: 10px;
 }
+
 .mt-20 {
     margin-top: 20px;
 }
@@ -66,6 +69,11 @@ input[type="number"] {
 }
 
 
+li {
+    list-style-type:  none;
+
+}
+
 .card {
     width: 225px;
     min-height: 350px;
@@ -73,6 +81,7 @@ input[type="number"] {
     display: flex;
     flex-direction: column;
     /* Размещаем элементы в колонку */
+
     border-radius: 4px;
     transition: 0.2s;
     position: relative;
@@ -220,15 +229,15 @@ input[type="number"] {
     /* Автоматически заполняем на всю ширину grid-контейнера */
     grid-template-columns: repeat(auto-fill, 225px);
     width: 100%;
-    max-width: 1000px; /* Ширина grid-контейнера */
+    max-width: 1000px;
+    /* Ширина grid-контейнера */
     justify-content: center;
-    justify-items: center; /* Размещаем карточку по центру */
-    column-gap: 30px; /* Отступ между колонками */
-    row-gap: 40px; /* Отступ между рядами */
+    justify-items: center;
+    /* Размещаем карточку по центру */
+    column-gap: 33px;
+    /* Отступ между колонками */
+    row-gap: 40px;
+    /* Отступ между рядами */
     margin: 0 auto;
     padding-top: 40px;
-  }
-
-
-
-  
+}

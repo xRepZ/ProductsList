@@ -7,13 +7,13 @@
         </div>
 
         <div v-else>
-            <div class="level mt-10">
+            <div class="level mt-10"  @keypress.enter="createProduct = false; putToProducts()">
                 <div>Название товара</div>
-                <input type="text" class="input ml-10" v-model="newProductData.title" @keypress.enter="putToProducts()">
+                <input type="text" class="input ml-10" v-model="newProductData.title">
                 <div>Цена</div>
-                <input type="number" class="input ml-10" v-model="newProductData.price" @keypress.enter="putToProducts()">
+                <input type="number" class="input ml-10" v-model="newProductData.price">
                 <div>Фотография</div>
-                <input type="file" class="input" @change="onFileChange" @keypress.enter="putToProducts()">
+                <input type="file" class="input" @change="onFileChange">
             </div>
             <div class="btn level mt-10 enter" @click="createProduct = false; putToProducts()">Добавить продукт</div>
         </div>
@@ -22,64 +22,49 @@
 
     <ol class="cards">
         <li v-for="product in actualItems" :key="product.id">
-
-
-
-            <div class="card">
-
+            <div class="card ml-10">
                 <div class="card__top">
-
-                    <a href="#" class="card__image">
+                    <a class="card__image">
                         <img :src="product.image" :alt="product.description" />
                     </a>
-
                     <!-- <div class="card__label">-10%</div> -->
                 </div>
 
                 <div class="card__bottom">
-
                     <div class="card__prices">
                         <!-- <div class="card__price card__price--discount">{{ product.price }}</div> -->
                         <div class="card__price">{{ product.price }}</div>
                     </div>
-
-                    <a href="#" class="card__title">
+                    <a class="card__title">
                         {{ product.title }}
                     </a>
-
                     <button class="card__add" @click="moveToDone(product.id)">Вычеркнуть</button>
                 </div>
             </div>
-
         </li>
     </ol>
     <div class="level mt-20" v-if="doneItems.length !== 0">Удалённые товары: </div>
     <ul class="done-items mt-10 cards">
         <li v-for="product in doneItems" :key="product.id">
-
             <div class="card">
-
                 <div class="card__top">
-
-                    <a href="#" class="card__image">
+                    <a class="card__image">
                         <img :src="product.image" :alt="product.description" />
                     </a>
-
                     <!-- <div class="card__label">-10%</div> -->
                 </div>
 
                 <div class="card__bottom">
-
                     <div class="card__prices">
                         <!-- <div class="card__price card__price--discount">{{ product.price }}</div> -->
                         <div class="card__price">{{ product.price }}</div>
                     </div>
-                    <a href="#" class="card__title">
+                    <a class="card__title">
                         {{ product.title }}
                     </a>
 
 
-                    <button class="card__add" @click="moveToActual">Вернуть</button>
+                    <button class="card__add" @click="moveToActual(product.id)">Вернуть</button>
                 </div>
             </div>
 
@@ -140,6 +125,7 @@ const onItemCreate = () => {
         price: null,
         image: null,
     }
+    console.log(newProductData.value.id)
 
 }
 
@@ -151,21 +137,11 @@ const moveToDone = (id) => {
 }
 
 const moveToActual = (id) => {
+
     const idx = doneItems.value.findIndex(item => item.id === id)
+
     const [item] = doneItems.value.splice(idx, 1)
     actualItems.value.push(item)
-}
-
-const removeItem = (arr, id) => {
-    const idx = arr.findIndex(item => item.id === id)
-    arr.splice(idx, 1)
-}
-const removeItemActual = (id) => {
-    removeItem(actualItems.value, id)
-}
-
-const removeItemDone = (id) => {
-    removeItem(doneItems.value, id)
 }
 
 const newList = () => {
