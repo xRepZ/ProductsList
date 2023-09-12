@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  app:
+    build: 
+      dockerfile: ./Dockerfile
+    container_name: productlist
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    
