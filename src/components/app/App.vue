@@ -2,20 +2,20 @@
     <div class="remove-all btn" @click="newList()">Пересоздать список продуктов</div>
     <div class="level mt-10">
 
-        <div v-if="!createProduct">
+        <div v-if="!createProduct && isPosted">
             <div class="btn ml-10 enter" @click="createProduct = true; onItemCreate()">Создать новый продукт</div>
         </div>
 
         <div v-else>
-            <div class="level mt-10"  @keypress.enter="createProduct = false; putToProducts()">
+            <div v-if="createProduct" class="level mt-10"  @keypress.enter="createProduct = false; putToProducts()">
                 <div>Название товара</div>
                 <input type="text" class="input ml-10" v-model="newProductData.title">
                 <div>Цена</div>
-                <input type="number" class="input ml-10" v-model="newProductData.price">
+                <input type="number" max="100000000" class="input ml-10" v-model="newProductData.price">
                 <div>Фотография</div>
                 <input type="file" class="input" @change="onFileChange">
             </div>
-            <div class="btn level mt-10 enter" @click="createProduct = false; putToProducts()">Добавить продукт</div>
+            <div v-if="createProduct" class="btn level mt-10 enter" @click="createProduct = false; putToProducts()">Добавить продукт</div>
         </div>
 
     </div>
@@ -27,12 +27,10 @@
                     <a class="card__image">
                         <img :src="product.image" :alt="product.description" />
                     </a>
-                    <!-- <div class="card__label">-10%</div> -->
                 </div>
 
                 <div class="card__bottom">
                     <div class="card__prices">
-                        <!-- <div class="card__price card__price--discount">{{ product.price }}</div> -->
                         <div class="card__price">{{ product.price }}</div>
                     </div>
                     <a class="card__title">
@@ -51,12 +49,10 @@
                     <a class="card__image">
                         <img :src="product.image" :alt="product.description" />
                     </a>
-                    <!-- <div class="card__label">-10%</div> -->
                 </div>
 
                 <div class="card__bottom">
                     <div class="card__prices">
-                        <!-- <div class="card__price card__price--discount">{{ product.price }}</div> -->
                         <div class="card__price">{{ product.price }}</div>
                     </div>
                     <a class="card__title">
@@ -89,6 +85,7 @@ const doneItems = ref([])
 const newProductData = ref(null)
 
 const createProduct = ref(false)
+const isPosted = ref(true)
 
 
 
@@ -159,11 +156,12 @@ const onFileChange = async (e) => {
 }
 
 const putToProducts = async () => {
-
+    
     if (!(newProductData.value.image && newProductData.value.price && newProductData.value.title)) {
         alert("Данные заполнены неверно")
         return
     }
+    isPosted.value = false
 
     const fd = new FormData()
     fd.append('image', newProductData.value.image)
@@ -182,6 +180,7 @@ const putToProducts = async () => {
     } catch (error) {
         alert(error)
     }
+    isPosted.value = true
 
 }
 
