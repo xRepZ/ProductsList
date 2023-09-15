@@ -85,6 +85,7 @@ li {
     border-radius: 4px;
     transition: 0.2s;
     position: relative;
+    overflow-wrap: break-word;
 }
 
 /* При наведении на карточку - меняем цвет тени */
@@ -149,6 +150,9 @@ li {
     margin-bottom: 10px;
     flex: 0 0 50%;
     /* Размещаем цены равномерно в две колонки */
+}
+.card__price {
+    overflow-wrap: anywhere;
 }
 
 .card__price::after {
